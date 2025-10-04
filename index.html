@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>| AD3NCA |</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <style>
+      :root {
+        --bg-color: #0d0d0d; /* Slightly darker background */
+        --section-bg-alt: #181818;
+        --text-color: #EAEAEA;
+        --subtext-color: #A1A1A1;
+        --accent-color: #ff0000; /* Main Red Color */
+        --accent-light: #ff4d4d; /* Lighter Red for Hovers */
+        --border-color: #2a2a2a;
+        --card-bg: #1A1A1A;
+      }
+
+      /* Global Resets & Base */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { background: var(--bg-color); color: var(--text-color); font-family: 'Inter', sans-serif; line-height: 1.7; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+      h1, h2, h3, h4, h5, h6 { font-weight: 700; color: var(--text-color); }
+      .codename { font-family: 'Space Mono', monospace; font-weight: 700; letter-spacing: 1px; }
+      .accent { color: var(--accent-color); text-shadow: 0 0 5px var(--accent-light), 0 0 10px var(--accent-light), 0 0 20px var(--accent-color); }
+
+      body {
+        background: var(--bg-color);
+        color: var(--text-color);
+        font-family: 'Inter', sans-serif;
+        line-height: 1.7;
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      .cursor {
+        color: var(--accent-color);
+        animation: blink 1s step-end infinite;
+      }
+
+      @keyframes blink {
+        from, to { color: transparent; }
+        50% { color: var(--accent-color); }
+      }
+
+      /* Custom Scrollbar */
+      body::-webkit-scrollbar {
+        width: 8px;
+      }
+      body::-webkit-scrollbar-track {
+        background: var(--bg-color);
+      }
+      body::-webkit-scrollbar-thumb {
+        background-color: var(--border-color);
+        border-radius: 10px;
+      }
+
+      /* Typography & Glow Effect */
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: 700;
+        color: var(--text-color);
+      }
+
+      .codename {
+        font-family: 'Space Mono', monospace;
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+      
+      .accent {
+        color: var(--accent-color);
+        /* Red Glow Effect */
+        text-shadow:
+          0 0 5px var(--accent-light),
+          0 0 10px var(--accent-light),
+          0 0 20px var(--accent-color);
+      }
+
+      /* Navigation */
+      .navbar {
+        background-color: rgba(13, 13, 13, 0.8);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: background-color 0.3s ease;
+        padding: 1rem 0;
+      }
+
+      .navbar-brand {
+        font-size: 1.5rem;
+        color: var(--text-color) !important;
+      }
+      
+      .nav-link {
+        color: var(--subtext-color) !important;
+        font-weight: 500;
+        transition: color 0.3s ease;
+        margin: 0 0.5rem;
+      }
+      .nav-link:hover,
+      .nav-link.active {
+        color: var(--accent-light) !important;
+      }
+
+      /* Hero / Intro Section */
+      #home {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+      }
+      #home h1 {
+        font-size: clamp(2.5rem, 8vw, 5rem);
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+      #home p {
+        font-size: clamp(1rem, 4vw, 1.5rem);
+        color: var(--subtext-color);
+        font-weight: 400;
+      }
+
+      /* General Section Styling */
+      section {
+        padding: 100px 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+      section:last-of-type {
+        border-bottom: none;
+      }
+      
+      .section-heading {
+        font-size: 2.8rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-heading::after {
+        content: '';
+        display: block;
+        width: 50%;
+        height: 4px;
+        background: var(--accent-color);
+        margin-top: 10px;
+        border-radius: 2px;
+        /* Glow for heading underline */
+        box-shadow: 0 0 8px var(--accent-color);
+      }
+      
+      /* FIXED: Centered Subheading */
+      .section-subheading {
+        color: var(--subtext-color);
+        max-width: 600px;
+        margin: 0 auto 3rem auto; /* Ensures the block is centered */
+      }
+      
+      /* About Section Profile Picture */
+      .profile-picture {
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 50%; /* Makes the image a circle */
+        border: 4px solid var(--border-color);
+        box-shadow: 0 0 25px rgba(255, 0, 0, 0.2);
+      }
+
+      /* Portfolio Cards */
+      .portfolio-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+      }
+      .portfolio-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        border-color: var(--accent-color);
+      }
+      .portfolio-card img {
+        object-fit: cover;
+        height: 220px;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .portfolio-card .card-body {
+        padding: 1.5rem;
+      }
+      
+      /* Skills Section */
+      .progress-bar {
+        background: var(--accent-color);
+      }
+
+      /* Experience Timeline */
+      .experience-item::before {
+        content: '';
+        position: absolute;
+        left: -9px;
+        top: 0;
+        width: 18px;
+        height: 18px;
+        background: var(--bg-color);
+        border: 3px solid var(--accent-color);
+        border-radius: 50%;
+        z-index: 1;
+        /* Glow for timeline dots */
+        box-shadow: 0 0 10px var(--accent-color);
+      }
+
+      /* Contact Form */
+      .form-control:focus {
+        background: var(--card-bg);
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.25);
+        color: var(--text-color);
+      }
+
+      /* Button Styling */
+      .btn-accent {
+        background: var(--accent-color);
+        border: none;
+        color: #fff;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+      }
+      .btn-accent:hover {
+        background: var(--accent-light);
+        transform: translateY(-2px);
+        /* Glow for button */
+        box-shadow: 0 0 15px var(--accent-color);
+      }
+
+      .card-title {
+        color: whitesmoke;
+      }
+      .social-icons a {
+        color: var(--subtext-color);
+        font-size: 1.8rem; /* Larger icon size */
+        margin: 0 15px;   /* Spacing between icons */
+        text-decoration: none;
+        display: inline-block;
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+      .social-icons a:hover {
+        color: var(--accent-color);
+        transform: translateY(-5px); /* Lift effect on hover */
+      }
+
+      /* (Unchanged from previous) */
+      .navbar { background-color: rgba(13, 13, 13, 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: background-color 0.3s ease; padding: 1rem 0; }
+      .navbar-brand { font-size: 1.5rem; color: var(--text-color) !important; }
+      .nav-link { color: var(--subtext-color) !important; font-weight: 500; transition: color 0.3s ease; margin: 0 0.5rem; }
+      .nav-link:hover, .nav-link.active { color: var(--accent-light) !important; }
+      #home { display: flex; align-items: center; justify-content: center; min-height: 100vh; text-align: center; }
+      #home h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); margin-bottom: 1rem; font-weight: 700; }
+      #home p.lead { font-size: clamp(1rem, 4vw, 1.5rem); color: var(--subtext-color); font-weight: 400; }
+      .social-icons a { color: var(--subtext-color); font-size: 1.8rem; margin: 0 15px; text-decoration: none; display: inline-block; transition: color 0.3s ease, transform 0.3s ease; }
+      .social-icons a:hover { color: var(--accent-color); transform: translateY(-5px); }
+      section { padding: 100px 0; border-bottom: 1px solid var(--border-color); }
+      section:last-of-type { border-bottom: none; }
+      .section-heading { font-size: 2.8rem; margin-bottom: 1.5rem; position: relative; display: inline-block; }
+      .section-heading::after { content: ''; display: block; width: 50%; height: 4px; background: var(--accent-color); margin-top: 10px; border-radius: 2px; box-shadow: 0 0 8px var(--accent-color); }
+      .section-subheading { color: var(--subtext-color); max-width: 600px; margin: 0 auto 3rem auto; }
+      .profile-picture { width: 250px; height: 250px; object-fit: cover; border-radius: 50%; border: 4px solid var(--border-color); box-shadow: 0 0 25px rgba(255, 0, 0, 0.2); }
+      .portfolio-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; transition: transform 0.3s ease, box-shadow 0.3s ease; overflow: hidden; }
+      .portfolio-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); border-color: var(--accent-color); }
+      .portfolio-card img { object-fit: cover; height: 220px; border-bottom: 1px solid var(--border-color); }
+      .portfolio-card .card-body { padding: 1.5rem; }
+      .progress-bar { background: var(--accent-color); }
+      .experience-item::before { content: ''; position: absolute; left: -9px; top: 0; width: 18px; height: 18px; background: var(--bg-color); border: 3px solid var(--accent-color); border-radius: 50%; z-index: 1; box-shadow: 0 0 10px var(--accent-color); }
+      .form-control:focus { background: var(--card-bg); border-color: var(--accent-color); box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.25); color: var(--text-color); }
+      .btn-accent { background: var(--accent-color); border: none; color: #fff; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 500; transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s; }
+      .btn-accent:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 0 15px var(--accent-color); }
+      .experience-item { padding-left: 40px; position: relative; padding-bottom: 3rem; border-left: 2px solid var(--border-color); }
+      .experience-item:last-child { border-left: 2px solid transparent; padding-bottom: 0; }
+      .experience-item h5 { font-size: 1.2rem; margin-bottom: 0.2rem; }
+      .experience-item small { display: block; color: var(--subtext-color); margin-bottom: 1rem; font-weight: 500; }
+      .form-control { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-color); padding: 0.9rem 1rem; border-radius: 8px; transition: border-color 0.3s, box-shadow 0.3s; }
+      .form-control::placeholder { color: var(--subtext-color); }
+      footer { background: var(--bg-color); color: var(--subtext-color); padding: 40px 0; text-align: center; }
+      .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+      .fade-in.visible { opacity: 1; transform: translateY(0); }
+      .skill-item { margin-bottom: 1.5rem; }
+      .skill-item h5 { font-size: 1.1rem; font-weight: 500; margin-bottom: 0.5rem; }
+      .progress { height: 8px; background: #2b2d35; border-radius: 4px; overflow: hidden; }
+      body::-webkit-scrollbar { width: 8px; }
+      body::-webkit-scrollbar-track { background: var(--bg-color); }
+      body::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 10px; }
+
+
+    </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand codename" href="#home">AD<span class="accent">3</span>NCA</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section id="home">
+    <div class="container text-center">
+      <h1 class="codename">
+        Hi, I'm <span id="animated-text"></span><span class="cursor">|</span>
+      </h1>
+      <p class="lead">An aspiring penetration tester passionate about cybersecurity.</p>
+      
+      <div class="social-icons mt-4">
+        <a href="https://github.com/IanNarito" target="_blank" aria-label="GitHub Profile">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="https://linkedin.com/in/ian-christian-narito-814380305/" target="_blank" aria-label="LinkedIn Profile">
+          <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+        <a href="https://medium.com/@ad3nca" target="_blank" aria-label="Medium Profile">
+          <i class="fa-brands fa-medium"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="fade-in">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="section-heading">About Me</h2>
+      </div>
+      <div class="row align-items-center mt-5">
+        <div class="col-lg-4 text-center text-lg-end mb-4 mb-lg-0">
+          <img src="img/profile.jpg" 
+               alt="A picture of Ian Christian Narito" 
+               class="profile-picture">
+        </div>
+        <div class="col-lg-8">
+          <h3>My name is Ian Christian Narito</h3>
+          <p class="text-secondary">
+            I'm a dedicated and curious cybersecurity enthusiast with a focus on penetration testing. My goal is to use my skills to identify vulnerabilities and help secure digital infrastructures against real-world threats. This portfolio is a showcase of my journey, projects, and the skills I've developed along the way.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="portfolio" class="fade-in">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="section-heading">Portfolio</h2>
+        <p class="section-subheading">Here are some of the projects I've worked on. Each one was a unique challenge and a great learning experience.</p>
+      </div>
+      <div class="row gy-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="card portfolio-card">
+            <img src="img/adminfinder.png" class="card-img-top" alt="Project 1">
+            <div class="card-body">
+              <h5 class="card-title">Website Admin Finder</h5>
+              <p class="card-text text-secondary">A python-based tool to find admin panel of a website</p>
+              <a href="https://github.com/IanNarito/AdminFinder" class="btn btn-sm btn-accent">View on GitHub</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card portfolio-card">
+            <img src="img/kalighost.jpg" class="card-img-top" alt="Project 2">
+            <div class="card-body">
+              <h5 class="card-title">Kali - Ghost</h5>
+              <p class="card-text text-secondary">KALI-GHOST is an all-in-one Kali Linux stealth hardening tool built for ethical hackers, penetration testers, and red teamers who want to operate like a shadow in the matrix.</p>
+              <a href="https://github.com/IanNarito/kali-ghost" class="btn btn-sm btn-accent">View on Github</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card portfolio-card">
+            <img src="img/dos.jpg" class="card-img-top" alt="Project 3">
+            <div class="card-body">
+              <h5 class="card-title">Nuke - A simple layer 4 Dos tool</h5>
+              <p class="card-text text-secondary">This is a simple layer 4 denial of service (DOS) tool for testing website security.</p>
+              <a href="https://github.com/IanNarito/nuke" class="btn btn-sm btn-accent">View on Github</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="skills" class="fade-in">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading">My Skills</h2>
+            <p class="section-subheading">I've cultivated a diverse range of technical skills to effectively tackle challenges in the cybersecurity landscape.</p>
+        </div>
+      <div class="row">
+        <div class="col-md-6 skill-item">
+          <h5>Python & Bash Scripting</h5>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 30%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="col-md-6 skill-item">
+          <h5>Network Analysis (Wireshark)</h5>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="col-md-6 skill-item">
+          <h5>Metasploit Framework</h5>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 85%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="col-md-6 skill-item">
+          <h5>Web App Pentesting (OWASP Top 10)</h5>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="col-md-6 skill-item">
+          <h5>Front-End Web Development (HTML, CSS, JAVASCRIPT)</h5>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 70%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="col-md-6 skill-item">
+          <h5>PHP</h5>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="col-md-6 skill-item">
+          <h5>Java</h5>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="col-md-6 skill-item">
+          <h5>C++</h5>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="fade-in">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="section-heading">Experience</h2>
+        <p class="section-subheading">My journey so far has been filled with valuable learning opportunities and practical challenges.</p>
+      </div>
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="experience-item">
+                <h5>Trend Micro Careers Philippines - CTF Competitions</h5>
+                <small>September 2025</small>
+                <p class="text-secondary">I participated in the CTF competition in Trend Micro with my team and secured the rank of 48 out of 200 participating teams.</p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="fade-in">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="section-heading">Get In Touch</h2>
+        <p class="section-subheading">Have a question or want to work together? Feel free to reach out. I'd love to hear from you!</p>
+      </div>
+      <form id="contactForm" class="col-lg-7 mx-auto">
+        <div class="row mb-3">
+          <div class="col-md-6 mb-3 mb-md-0">
+            <input type="text" class="form-control" id="name" placeholder="Your Name" required />
+          </div>
+          <div class="col-md-6">
+            <input type="email" class="form-control" id="email" placeholder="Your Email" required />
+          </div>
+        </div>
+        <div class="mb-3">
+          <input type="text" class="form-control" id="subject" placeholder="Subject" required />
+        </div>
+        <div class="mb-4">
+          <textarea class="form-control" id="message" rows="5" placeholder="Your Message" required></textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-accent">Send Message</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="py-4">
+    <div class="container">
+      <p class="m-0 text-center">&copy; 2025 AD3NCA. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Contact Form Stub
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("Thank you! Your message has been sent (demo).");
+      this.reset();
+    });
+
+    // Active Nav Link on Scroll
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    window.addEventListener("scroll", () => {
+      let current = "home"; // Default to home
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 150) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach((link) => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === `#${current}`) {
+          link.classList.add("active");
+        }
+      });
+    });
+
+    // Fade-in animation on scroll
+    const fadeInElements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    fadeInElements.forEach(el => {
+        observer.observe(el);
+    });
+
+    // --- NEW: Typing Animation Script ---
+    document.addEventListener("DOMContentLoaded", function() {
+      const animatedText = document.getElementById('animated-text');
+      // Note: We use innerHTML to render the <span> tag correctly for the red '3'.
+      const words = ['AD<span class="accent">3</span>NCA', 'Ian Christian Narito'];
+      
+      let wordIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      const typeSpeed = 200;
+      const deleteSpeed = 200;
+      const delayBetweenWords = 2000;
+
+      function typeEffect() {
+        const currentWord = words[wordIndex];
+        
+        if (isDeleting) {
+          // Deleting characters
+          animatedText.innerHTML = currentWord.substring(0, charIndex - 1);
+          charIndex--;
+        } else {
+          // Typing characters
+          animatedText.innerHTML = currentWord.substring(0, charIndex + 1);
+          charIndex++;
+        }
+
+        if (!isDeleting && charIndex === currentWord.length) {
+          // Word fully typed, start deleting after a pause
+          setTimeout(() => isDeleting = true, delayBetweenWords);
+        } else if (isDeleting && charIndex === 0) {
+          // Word fully deleted, move to the next word
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+        }
+
+        const speed = isDeleting ? deleteSpeed : typeSpeed;
+        setTimeout(typeEffect, speed);
+      }
+
+      typeEffect(); // Start the animation
+    });
+  </script>
+</body>
+</html>
